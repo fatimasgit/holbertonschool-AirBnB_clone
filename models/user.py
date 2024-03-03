@@ -3,28 +3,16 @@
 
 import models
 from models.base_model import BaseModel
-import sqlalchemy
-from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship
 from hashlib import md5
 
 
 class User(BaseModel):
     """Representation of a user """
     
-    try:
-        __tablename__ = 'users'
-        email = Column(String(128), nullable=False)
-        password = Column(String(128), nullable=False)
-        first_name = Column(String(128), nullable=True)
-        last_name = Column(String(128), nullable=True)
-        places = relationship("Place", backref="user")
-        reviews = relationship("Review", backref="user")
-    except Exception as ex:
-        email = ""
-        password = ""
-        first_name = ""
-        last_name = ""
+    email = ""
+    password = ""
+    first_name = ""
+    last_name = ""
 
     def __init__(self, *args, **kwargs):
         """initializes user"""
