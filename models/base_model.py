@@ -5,7 +5,7 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         if (kwargs):
             # kwargs daxilinde key ve value ayirir
-            for key, value in kwargs:
+            for key, value in kwargs.items():
                 # atribut elave edir, atribut - key
                 setattr(self, key, value) 
                 
