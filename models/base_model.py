@@ -1,7 +1,7 @@
 import uuid  #unik ID generate etmek ucun modul
 from datetime import datetime  # datetime ucun modul
 # Import the variable storage
-from models.engine import __init__ as storage_engine
+from models import engine
 # Import models
 import models
 
@@ -41,9 +41,9 @@ class BaseModel:
     def save(self):
         self.updated_at = datetime.now()
         # If it’s a new instance (not from a dictionary representation), add a call to the method new(self) on storage
-        storage_engine.storage.new(self)
+        engine.storage.new(self)
         # Save data
-        storage_engine.storage.save()
+        engine.storage.save()
         
     def to_dict(self):
         obj_dict = self.__dict__.copy()
