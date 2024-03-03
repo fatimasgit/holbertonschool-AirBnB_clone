@@ -1,11 +1,23 @@
 import json
 from json.decoder import JSONDecodeError
+from models.base_model import BaseModel
+from models.user import User
+
+classes = {
+    # "Amenity": Amenity,
+    "BaseModel": BaseModel,
+    # "City": City,
+    # "Place": Place,
+    # "Review": Review,
+    # "State": State,
+    "User": User
+}
 
 class FileStorage:
     """
     The class for storing data  
     """
-    __file_path = "./file.json"
+    __file_path = "file.json"
     __objects = {}
     
     def all(self, cls=None):
@@ -33,16 +45,13 @@ class FileStorage:
             json_objects[key] = self.__objects[key].to_dict(save_fs=1)
         with open(self.__file_path, 'w') as f:
             json.dump(json_objects, f)
+            
     def reload(self):
-
-
+        """deserializes the JSON file to __objects"""
         try:
-            # Open file for read
-            with open(self.__file_path, "r") as file:
-                data = file.read()
-            
-            self.__objects = json.loads(data)
-            
-        except (FileNotFoundError, JSONDecodeError):
-            # Handle the case where the file doesn't exist or is empty
-            self.__objects = {}
+            with open(self.__file_path, 'r') as f:
+                jo = json.load(f)
+            for key in jo:
+                self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
+        except:
+            pass
