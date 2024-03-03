@@ -4,6 +4,18 @@ This file is for command line with Python
 """
 
 import cmd
+from models.base_model import BaseModel
+
+# Classes
+classes = {
+    "BaseModel": BaseModel,
+    # "Amenity": Amenity,
+    # "City": City,
+    # "Place": Place,
+    # "Review": Review,
+    # "State": State,
+    # "User": User
+    }
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -41,10 +53,21 @@ class HBNBCommand(cmd.Cmd):
     def do_EOF(self, arg):
         """ Function for quit """
         return True
-    
-    def do_hello(self, arg):
-        """Print a greeting message"""
-        print("Hello! Welcome to MyCmd.")
+
+    def do_create(self, arg):
+        """Creates a new instance of a class"""
+        args = arg.split()
+        if len(args) == 0:
+            print("** class name missing **")
+            return False
+        if args[0] in classes:
+            new_dict = self._key_value_parser(args[1:])
+            instance = classes[args[0]](**new_dict)
+        else:
+            print("** class doesn't exist **")
+            return False
+        print(instance.id)
+        instance.save()
     
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
