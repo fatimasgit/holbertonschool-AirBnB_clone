@@ -1,4 +1,5 @@
 import json
+from json.decoder import JSONDecodeError
 
 """
 Storage file for storing the data
@@ -37,6 +38,7 @@ class FileStorage:
                 data = file.read()
             
             self.__objects = json.loads(data)
-        except FileNotFoundError:
-            # Handle the case where the file doesn't exist
+            
+        except (FileNotFoundError, JSONDecodeError):
+            # Handle the case where the file doesn't exist or is empty
             self.__objects = {}
