@@ -6,8 +6,10 @@ class BaseModel:
         if (kwargs):
             # kwargs daxilinde key ve value ayirir
             for key, value in kwargs.items():
-                # atribut elave edir, atribut - key
-                setattr(self, key, value) 
+                # classda error verdi ona görə
+                if (key != "__class__"):
+                    # atribut elave edir, atribut - key
+                    setattr(self, key, value) 
                 
             # eger object yarananda id daxil edilmeyibse
             if (kwargs.get("id", None) is None): 
