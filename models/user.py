@@ -2,14 +2,14 @@
 """ The file for User model """
 
 import models
-from models.base_model import BaseModel, Base
+from models.base_model import BaseModel
 import sqlalchemy
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from hashlib import md5
 
 
-class User(BaseModel, Base):
+class User(BaseModel):
     """Representation of a user """
     if models.storage_t == 'db':
         __tablename__ = 'users'
