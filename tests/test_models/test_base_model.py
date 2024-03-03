@@ -1,5 +1,10 @@
 #!/usr/bin/python3
 from models.base_model import BaseModel
+import unittest
+
+"""
+Tester module for models.base_model model
+"""
 
 my_model = BaseModel()
 my_model.name = "My First Model"
@@ -18,3 +23,16 @@ print("JSON of my_model:")
 
 for key in my_model_json.keys():
     print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
+
+class BaseTestCase(unittest.TestCase):
+    """
+    The test class for BaseModel
+    """
+    
+    def __init__(self):
+        self.my_model = BaseModel()
+        self.my_model.name = "My First Model"
+        self.my_model.my_number = 89
+        
+    def test_number(self):
+        self.assertGreater(self.my_number, 5)
