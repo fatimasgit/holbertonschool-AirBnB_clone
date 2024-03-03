@@ -2,10 +2,32 @@ import uuid  #unik ID generate etmek ucun modul
 from datetime import datetime  # datetime ucun modul
 
 class BaseModel:
-    def __init__(self):
-        self.id = str(uuid.uuid4())  #id generate edir
-        self.created_at = datetime.now()  #id nin yaranma tarixi
-        self.updated_at = datetime.now()  #id nin update olunma tarixi
+    def __init__(self, *args, **kwargs):
+        if (kwargs):
+            # kwargs daxilinde key ve value ayirir
+            for key, value in kwargs:
+                # atribut elave edir, atribut - key
+                setattr(self, key, value) 
+                
+            # eger object yarananda id daxil edilmeyibse
+            if (kwargs.get("id", None) is None): 
+                self.id = str(uuid.uuid4())
+            
+            # Eger object yarananda created_at variable'a deger verilmeyibse
+            if (kwargs.get("created_at", None) and type(self.created_at) is str):
+                self.created_at = datetime.strptime(kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
+            else:
+                self.created_at = datetime.now()
+            
+            if(kwargs.get("updateed_data",None) and type(self.updated_at) is str):
+                self.updated_at = datetime.strptime(kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
+            else:
+                self.updated_at = datetime.now()
+                
+        else:
+            self.id = str(uuid.uuid4())  #id generate edir
+            self.created_at = datetime.now()  #id nin yaranma tarixi
+            self.updated_at = datetime.now()  #id nin update olunma tarixi
         
     def __str__(self):
         return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
