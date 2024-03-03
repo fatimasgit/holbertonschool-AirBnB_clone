@@ -1,5 +1,9 @@
 import cmd
 
+"""
+This file is for command line with Python
+"""
+
 class HBNBCommand(cmd.Cmd):
     """
     Command line class with Python
