@@ -41,7 +41,7 @@ class BaseModel:
     def save(self):
         self.updated_at = datetime.now()
         # If it’s a new instance (not from a dictionary representation), add a call to the method new(self) on storage
-        storage_engine.storage.new()
+        storage_engine.storage.new(self)
         # Save data
         storage_engine.storage.save()
         
