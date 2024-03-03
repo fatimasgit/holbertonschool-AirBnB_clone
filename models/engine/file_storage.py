@@ -31,8 +31,14 @@ class FileStorage:
             file.write(data)
     
     def reload(self):
-        # Open filefor read
-        with open(self.__file_path, "r") as file:
-            data = file.read()
-        
-        self.__objects = json.loads(data)
+
+
+        try:
+            # Open file for read
+            with open(self.__file_path, "r") as file:
+                data = file.read()
+            
+            self.__objects = json.loads(data)
+        except FileNotFoundError:
+            # Handle the case where the file doesn't exist
+            self.__objects = {}
