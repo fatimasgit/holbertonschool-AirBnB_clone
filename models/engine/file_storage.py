@@ -20,11 +20,14 @@ class FileStorage:
             self.__objects[key] = obj
     
     def save(self):
-        """ Serializes __objects to the JSON file (path: __file_path) """
-        
-        with open(self.__file_path, "w") as file:
-            json.dump(self.__objects, file)
-    
+        """serializes __objects to the JSON file (path: __file_path)"""
+        json_objects = {}
+        for key in self.__objects:
+            if key == "password":
+                json_objects[key].decode()
+            json_objects[key] = self.__objects[key].to_dict(save_fs=1)
+        with open(self.__file_path, 'w') as f:
+            json.dump(json_objects, f)
     def reload(self):
 
 
