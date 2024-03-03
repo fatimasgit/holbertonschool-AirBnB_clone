@@ -1,8 +1,8 @@
-import cmd
-
 """
 This file is for command line with Python
 """
+
+import cmd
 
 class HBNBCommand(cmd.Cmd):
     """
